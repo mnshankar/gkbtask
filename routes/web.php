@@ -12,5 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('show-data');
 });
+Route::get('show-data', function(){
+    $reportData = App\ReportsData::paginate(50);
+    return view('showdata')->with(compact('reportData'));
+})->name('show-data');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
