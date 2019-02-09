@@ -10,14 +10,24 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return redirect()->route('show-data');
+use Freshbitsweb\Laratables\Laratables;
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', function () {    
+        return view('showdata');
+        //return redirect()->route('show-data');
+    })->name('main');
+    Route::get('show-data', function () {    
+        return redirect()->route('main');
+        //return redirect()->route('show-data');
+    });
+    
+    Route::get('data', function(){    
+        return Laratables::recordsOf(App\ReportsData::class);
+        //$reportData = App\ReportsData::paginate(50);
+        //return view('showdata')->with(compact('reportData'));
+    })->name('data');
 });
-Route::get('show-data', function(){
-    $reportData = App\ReportsData::paginate(50);
-    return view('showdata')->with(compact('reportData'));
-})->name('show-data');
+
 
 Auth::routes();
 

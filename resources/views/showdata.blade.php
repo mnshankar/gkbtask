@@ -4,7 +4,7 @@
     
     <div class="card">
         <div class="table-responsive">
-        <table class="table table-dark table-sm table-hover table-striped">
+        <table id="table" class="table table-sm table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -30,41 +30,56 @@
                         <th>data-20</th>                        
                     </tr>
                 </thead>
-                <tbody>
-        <div class="card-body">
-          @foreach ($reportData as $row)
-                <tr>               
-                    
-                      <td scope="row">{{$row->id}}</td>
-                      <td>{{$row->{'data-1'} }}</td>
-                      <td>{{$row->{'data-2'} }}</td>
-                      <td>{{$row->{'data-3'} }}</td>
-                      <td>{{$row->{'data-4'} }}</td>
-                      <td>{{$row->{'data-5'} }}</td>
-                      <td>{{$row->{'data-6'} }}</td>
-                      <td>{{$row->{'data-7'} }}</td>
-                      <td>{{$row->{'data-8'} }}</td>
-                      <td>{{$row->{'data-9'} }}</td>                      
-                      <td>{{$row->{'data-10'} }}</td>
-                      <td>{{$row->{'data-11'} }}</td>
-                      <td>{{$row->{'data-12'} }}</td>
-                      <td>{{$row->{'data-13'} }}</td>
-                      <td>{{$row->{'data-14'} }}</td>
-                      <td>{{$row->{'data-15'} }}</td>
-                      <td>{{$row->{'data-16'} }}</td>
-                      <td>{{$row->{'data-17'} }}</td>
-                      <td>{{$row->{'data-18'} }}</td>
-                      <td>{{$row->{'data-19'} }}</td>
-                      <td>{{$row->{'data-20'} }}</td>
-
-                </tr>                              
-          @endforeach
-        </tbody>
+                
     </table>
         </div>
         </div>
 
-        {!!$reportData->links()!!}
       </div>
-    
+     
+@endsection
+
+@section('customJS')
+{{-- <script>
+    $(document).ready(function() {
+      $('#table').DataTable(
+        {
+          "deferLoading": 50
+        }
+      );
+  } );
+</script> --}}
+<script>
+  $(document).ready(function() {
+      $('#table').DataTable({
+          serverSide: true,
+          processing: true,
+          responsive: true,
+          ajax: "{{ route('data') }}",
+          columns: [
+              { name: 'id' },
+              { name: 'data-1' },
+              { name: 'data-2' },
+              { name: 'data-3' },
+              { name: 'data-4' },
+              { name: 'data-5' },
+              { name: 'data-6' },
+              { name: 'data-7' },
+              { name: 'data-8' },
+              { name: 'data-9' },
+              { name: 'data-10' },
+              { name: 'data-11' },
+              { name: 'data-12' },
+              { name: 'data-13' },
+              { name: 'data-14' },
+              { name: 'data-15' },
+              { name: 'data-16' },
+              { name: 'data-17' },
+              { name: 'data-18' },
+              { name: 'data-19' },
+              { name: 'data-20' }             
+          ],
+      });
+  });
+</script>
 @endsection
